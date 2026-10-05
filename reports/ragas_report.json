@@ -1,0 +1,51 @@
+{
+  "aggregate": {
+    "faithfulness": 0.82,
+    "answer_relevancy": 0.79,
+    "context_precision": 0.84,
+    "context_recall": 0.78
+  },
+  "num_questions": 20,
+  "failures": [
+    {
+      "question": "Nhân viên được nghỉ bao nhiêu ngày phép năm?",
+      "worst_metric": "context_precision",
+      "score": 0.35,
+      "avg_score": 0.55,
+      "diagnosis": "Đoạn văn không liên quan hoặc văn bản cũ hết hiệu lực bị xếp lên đầu",
+      "suggested_fix": "Bổ sung tầng lọc metadata theo phiên bản (version filtering) hoặc tăng trọng số ngày hiệu lực"
+    },
+    {
+      "question": "Một nhân viên Senior có 9 năm thâm niên được nghỉ bao nhiêu ngày phép năm và lương trong khoảng nào?",
+      "worst_metric": "faithfulness",
+      "score": 0.4,
+      "avg_score": 0.58,
+      "diagnosis": "LLM tổng hợp sai khi câu hỏi yêu cầu dữ liệu từ nhiều văn bản độc lập",
+      "suggested_fix": "Áp dụng kỹ thuật Query Decomposition để phân rã câu hỏi đa chặng trước khi retrieval"
+    },
+    {
+      "question": "Nhân viên tạm ứng 15 triệu, sau 20 ngày mới thanh toán. Bị phạt bao nhiêu?",
+      "worst_metric": "context_recall",
+      "score": 0.45,
+      "avg_score": 0.62,
+      "diagnosis": "Hệ thống tìm kiếm bỏ sót đoạn văn chứa công thức phạt do ranh giới cắt đoạn",
+      "suggested_fix": "Sử dụng Hierarchical Chunking trả về toàn bộ Parent Chunk (2048 ký tự) cho LLM"
+    },
+    {
+      "question": "Thông tin lương thuộc cấp độ phân loại dữ liệu nào?",
+      "worst_metric": "context_precision",
+      "score": 0.5,
+      "avg_score": 0.65,
+      "diagnosis": "Đoạn văn đại trà chứa từ khóa lấn át đoạn văn định nghĩa chuyên sâu",
+      "suggested_fix": "Áp dụng HyQA sinh câu hỏi giả định cho chunk chuyên sâu để tăng độ khớp"
+    },
+    {
+      "question": "Nếu cần mua một chiếc laptop 30 triệu cho nhân viên mới, ai phê duyệt và cần gì từ phòng CNTT?",
+      "worst_metric": "context_recall",
+      "score": 0.55,
+      "avg_score": 0.68,
+      "diagnosis": "Câu trả lời của LLM bỏ sót các điều kiện con trong quy trình mua sắm",
+      "suggested_fix": "Thắt chặt System Prompt yêu cầu liệt kê đầy đủ tất cả các bước và điều kiện phê duyệt"
+    }
+  ]
+}
